@@ -3,11 +3,10 @@ package com.example.apilesson
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
@@ -15,7 +14,6 @@ import com.example.apilesson.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
     private val apiUrl = "https://api.weatherapi.com/v1/forecast.json?key=11b9394e7e024a2588a44954230610&q=Tashkent&days=8&aqi=no&alerts=no"
-    private lateinit var tempTextView: TextView
     private lateinit var binding: FragmentHomeBinding
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -38,7 +36,7 @@ class HomeFragment : Fragment() {
 
                 binding.windSpeed.text = "${windKph}km/h"
                 binding.humidity.text = "${humidity}%"
-                tempTextView.text = "${tempC}°"
+                binding.temp.text = "${tempC}°"
 
                 binding.forecastRv.adapter = ForecastAdapter(response.getJSONObject("forecast").getJSONArray("forecastday"))
                 binding.todayRv.adapter = TodayAdapter(response.getJSONObject("forecast").getJSONArray("forecastday").getJSONObject(0).getJSONArray("hour"))
