@@ -41,6 +41,7 @@ class HomeFragment : Fragment() {
                 binding.forecastRv.adapter = ForecastAdapter(response.getJSONObject("forecast").getJSONArray("forecastday"))
                 binding.todayRv.adapter = TodayAdapter(response.getJSONObject("forecast").getJSONArray("forecastday").getJSONObject(0).getJSONArray("hour"))
 
+                Log.d("TAG", "$response")
             }
         ) { error -> Log.d("TAG", "onErrorResponse: $error") }
         requestQue.add(request)

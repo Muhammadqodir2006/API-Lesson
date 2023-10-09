@@ -26,7 +26,7 @@ class TodayAdapter(private val hours:JSONArray): RecyclerView.Adapter<TodayAdapt
         val hour:JSONObject = hours.getJSONObject(position)
         val time = hour.getString("time")
         val temp = hour.getDouble("temp_c")
-        holder.hour.text = time
+        holder.hour.text = time.substring(time.length-6)
         holder.temp.text = temp.toString()
     }
 }
