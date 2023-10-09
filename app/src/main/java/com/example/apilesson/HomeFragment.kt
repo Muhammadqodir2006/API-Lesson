@@ -8,9 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import coil.load
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
 import com.example.apilesson.databinding.FragmentHomeBinding
+import org.json.JSONArray
 
 class HomeFragment : Fragment() {
     private val apiUrl = "https://api.weatherapi.com/v1/forecast.json?key=11b9394e7e024a2588a44954230610&q=Tashkent&days=8&aqi=no&alerts=no"
@@ -22,7 +24,7 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val requestQue = Volley.newRequestQueue(requireContext())
-
+        var forecastAdapter = ForecastAdapter(JSONArray())
         binding.forecastRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.todayRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
@@ -38,9 +40,11 @@ class HomeFragment : Fragment() {
                 binding.humidity.text = "${humidity}%"
                 binding.temp.text = "${tempC}°"
 
-                binding.forecastRv.adapter = ForecastAdapter(response.getJSONObject("forecast").getJSONArray("forecastday"))
+                forecastAdapter = ForecastAdapter(response.getJSONObject("forecast").getJSONArray("forecastday"))
+                binding.forecastRv.adapter = forecastAdapter
                 binding.todayRv.adapter = TodayAdapter(response.getJSONObject("forecast").getJSONArray("forecastday").getJSONObject(0).getJSONArray("hour"))
-
+                binding.icon.load("https:" + current.getJSONObject("condition").getString("icon"))
+                forecastAdapter.notifyDataSetChanged()
                 Log.d("TAG", "$response")
             }
         ) { error -> Log.d("TAG", "onErrorResponse: $error") }

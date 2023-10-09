@@ -10,7 +10,7 @@ import org.json.JSONArray
 class ForecastAdapter(private val days:JSONArray): RecyclerView.Adapter<ForecastAdapter.MyHolder>() {
     class MyHolder(itemView: View) :RecyclerView.ViewHolder(itemView){
         val day:TextView = itemView.findViewById(R.id.forecast_day)
-        val temp:TextView = itemView.findViewById(R.id.forecast_day)
+        val temp:TextView = itemView.findViewById(R.id.forecast_temp)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyHolder {
@@ -26,7 +26,7 @@ class ForecastAdapter(private val days:JSONArray): RecyclerView.Adapter<Forecast
         val date = day.getString("date")
         val temp = day.getJSONObject("day").getDouble("avgtemp_c")
 
-        holder.day.text = date.substring(day.length()-6)
+        holder.day.text = date
         holder.temp.text = temp.toString()
     }
 }
