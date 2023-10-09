@@ -15,17 +15,13 @@ import com.android.volley.Response
 import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import com.example.apilesson.databinding.ActivityMainBinding
 import org.json.JSONObject
-import kotlin.math.log
 
 class MainActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
         supportFragmentManager.beginTransaction().add(R.id.main, HomeFragment()).commit()
-
     }
 }
