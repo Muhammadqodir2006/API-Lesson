@@ -10,23 +10,23 @@
    <androidx.constraintlayout.widget.ConstraintLayout
        android:layout_width="match_parent"
        android:layout_height="match_parent">
+
        <TextView
            android:id="@+id/temp"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginTop="4dp"
-           android:layout_marginEnd="32dp"
+           android:layout_marginStart="36dp"
            android:text="23°"
            android:textColor="@color/white"
            android:textSize="100sp"
            android:textStyle="bold"
-           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toBottomOf="@+id/textView" />
 
        <ImageView
            android:id="@+id/icon"
-           android:layout_width="50dp"
-           android:layout_height="50dp"
+           android:layout_width="70dp"
+           android:layout_height="70dp"
            app:layout_constraintBottom_toBottomOf="@+id/temp"
            app:layout_constraintEnd_toEndOf="@+id/temp" />
 
@@ -34,8 +34,8 @@
            android:id="@+id/textView"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:layout_marginStart="16dp"
-           android:layout_marginTop="28dp"
+           android:layout_marginStart="36dp"
+           android:layout_marginTop="36dp"
            android:text="Tashkent"
            android:textColor="#F8F8F8"
            android:textSize="38sp"
@@ -46,15 +46,16 @@
            android:id="@+id/linearLayoutCompat3"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
+           android:gravity="center_horizontal"
            android:orientation="vertical"
            app:layout_constraintBottom_toBottomOf="@+id/temp"
-           app:layout_constraintStart_toStartOf="@+id/textView"
-           app:layout_constraintTop_toBottomOf="@+id/textView">
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toEndOf="@+id/temp"
+           app:layout_constraintTop_toTopOf="@+id/textView">
 
            <androidx.appcompat.widget.LinearLayoutCompat
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:layout_marginEnd="24dp"
                android:layout_marginBottom="2dp"
                android:gravity="center_horizontal"
                android:orientation="vertical">
@@ -64,7 +65,7 @@
                    android:layout_height="wrap_content"
                    android:text="Wind"
                    android:textColor="#EAEAEA"
-                   android:textSize="22sp"
+                   android:textSize="20sp"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toTopOf="parent" />
@@ -75,7 +76,7 @@
                    android:layout_height="wrap_content"
                    android:text="11.2 km/h"
                    android:textColor="#F8F8F8"
-                   android:textSize="28sp"
+                   android:textSize="22sp"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toTopOf="parent" />
@@ -86,9 +87,7 @@
            <androidx.appcompat.widget.LinearLayoutCompat
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
-               android:layout_marginStart="24dp"
-               android:layout_marginTop="2dp"
-
+               android:layout_marginTop="12dp"
                android:gravity="center_horizontal"
                android:orientation="vertical">
 
@@ -97,7 +96,7 @@
                    android:layout_height="wrap_content"
                    android:text="Humidity"
                    android:textColor="#EAEAEA"
-                   android:textSize="22sp"
+                   android:textSize="20sp"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toTopOf="parent" />
@@ -108,7 +107,7 @@
                    android:layout_height="wrap_content"
                    android:text="79%"
                    android:textColor="#F8F8F8"
-                   android:textSize="28sp"
+                   android:textSize="22sp"
                    app:layout_constraintEnd_toEndOf="parent"
                    app:layout_constraintStart_toStartOf="parent"
                    app:layout_constraintTop_toTopOf="parent" />
@@ -122,8 +121,8 @@
            android:layout_width="0dp"
            android:layout_height="wrap_content"
            android:layout_marginHorizontal="16dp"
-           android:layout_marginTop="16dp"
            app:cardCornerRadius="16dp"
+           android:layout_marginTop="12dp"
            app:layout_constraintEnd_toEndOf="parent"
            app:layout_constraintStart_toStartOf="parent"
            app:layout_constraintTop_toBottomOf="@+id/temp">
