@@ -35,10 +35,10 @@ class ForecastAdapter(private val days:JSONArray, val itemClickInterface: ItemCl
         holder.temp.text = temp.toString()
         holder.icon.load("https:" + iconUrl)
         holder.itemView.setOnClickListener {
-            itemClickInterface.onParentClick(day)
+            itemClickInterface.onParentClick(day, position)
         }
     }
     interface ItemClickInterface{
-        fun onParentClick(day : JSONObject)
+        fun onParentClick(day : JSONObject, position: Int)
     }
 }

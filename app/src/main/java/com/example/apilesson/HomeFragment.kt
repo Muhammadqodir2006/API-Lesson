@@ -24,30 +24,24 @@ class HomeFragment : Fragment() {
     private val apiUrl = "https://api.weatherapi.com/v1/forecast.json?key=11b9394e7e024a2588a44954230610&q=Tashkent&days=8&aqi=no&alerts=no"
     private lateinit var binding: FragmentHomeBinding
     var forecastAdapter = ForecastAdapter(JSONArray(), object : ForecastAdapter.ItemClickInterface{
-        override fun onParentClick(day: JSONObject) {
-            changeToday(day)
+        override fun onParentClick(day: JSONObject, position: Int) {
+            changeToday(day, position)
         }
     })
+    var todayAdapter = TodayAdapter(JSONArray(), 0)
+    var fromHour = LocalTime.now().hour
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val currentHour = LocalTime.now().hour
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         val requestQue = Volley.newRequestQueue(requireContext())
 
         binding.forecastRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.todayRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-
-
-        val myShader: Shader = LinearGradient(
-            0f, 0f, 0f, 100f,
-            Color.WHITE, Color.WHITE,
-            Shader.TileMode.CLAMP
-        )
-        binding.temp.paint.shader = myShader
 
         val request = JsonObjectRequest(apiUrl,
             { response ->
@@ -61,12 +55,13 @@ class HomeFragment : Fragment() {
                 binding.temp.text = "${tempC.toInt()} C°"
 
                 forecastAdapter = ForecastAdapter(response.getJSONObject("forecast").getJSONArray("forecastday"), object : ForecastAdapter.ItemClickInterface{
-                    override fun onParentClick(day: JSONObject) {
-                        changeToday(day)
+                    override fun onParentClick(day: JSONObject, position: Int) {
+                        changeToday(day, position)
                     }
                 })
                 binding.forecastRv.adapter = forecastAdapter
-                binding.todayRv.adapter = TodayAdapter(response.getJSONObject("forecast").getJSONArray("forecastday").getJSONObject(0).getJSONArray("hour"), currentHour)
+                todayAdapter = TodayAdapter(response.getJSONObject("forecast").getJSONArray("forecastday").getJSONObject(0).getJSONArray("hour"), fromHour)
+                binding.todayRv.adapter = todayAdapter
                 binding.icon.load("https:" + current.getJSONObject("condition").getString("icon"))
                 forecastAdapter.notifyDataSetChanged()
             }
@@ -75,7 +70,16 @@ class HomeFragment : Fragment() {
 
         return binding.root
     }
-    fun changeToday(day: JSONObject){
-        //TODO:
+    fun changeToday(day: JSONObject, position:Int){
+        if (position == 0){
+            binding.todayAdapterText.text = "Today"
+            fromHour = LocalTime.now().hour
+        }else{
+            binding.todayAdapterText.text = day.getString("date")
+            fromHour = 0
+        }
+        todayAdapter.hours = day.getJSONArray("hour")
+        todayAdapter.from = fromHour
+        todayAdapter.notifyDataSetChanged()
     }
 }
